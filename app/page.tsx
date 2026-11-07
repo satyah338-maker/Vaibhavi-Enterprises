@@ -286,7 +286,7 @@ export default function Home() {
                     height: "100%",
                   }}
                 >
-                  {/* Image with hover overlay */}
+                  {/* Image container — image only by default */}
                   <div
                     style={{
                       position: "relative",
@@ -325,12 +325,13 @@ export default function Home() {
                         {app.name}
                       </div>
                     )}
+                    {/* Hover overlay — basic info appears on hover */}
                     <div
                       className="app-service-overlay"
                       style={{
                         position: "absolute",
                         inset: 0,
-                        background: "linear-gradient(to top, rgba(13,119,119,0.92) 0%, rgba(13,119,119,0.5) 50%, transparent 100%)",
+                        background: "linear-gradient(to top, rgba(13,119,119,0.95) 0%, rgba(13,119,119,0.65) 50%, transparent 100%)",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -343,12 +344,27 @@ export default function Home() {
                         gap: "0.75rem",
                       }}
                     >
+                      <span
+                        style={{
+                          display: "inline-block",
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          color: "#ffffff",
+                          fontSize: "0.65rem",
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        {appProducts.length} Products
+                      </span>
                       <h3
                         style={{
                           fontSize: "1.15rem",
                           fontWeight: 800,
                           color: "#ffffff",
-                          margin: 0,
+                          margin: "0 0 0.5rem",
                           lineHeight: 1.3,
                           textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                         }}
@@ -384,104 +400,6 @@ export default function Home() {
                       >
                         View Solutions <ArrowRight size={14} />
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        backgroundColor: "#e6f4f4",
-                        color: "#0d7777",
-                        fontSize: "0.7rem",
-                        fontWeight: 700,
-                        padding: "2px 8px",
-                        borderRadius: "4px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      Products: {appProducts.length}
-                    </span>
-                    <h3
-                      style={{
-                        fontSize: "1.05rem",
-                        fontWeight: 700,
-                        color: "#1e293b",
-                        margin: 0,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {app.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: "0.85rem",
-                        color: "#64748b",
-                        lineHeight: 1.6,
-                        margin: 0,
-                        flex: 1,
-                      }}
-                    >
-                      {app.shortDescription}
-                    </p>
-                    <div
-                      style={{
-                        marginTop: "auto",
-                        paddingTop: "0.75rem",
-                        borderTop: "1px solid #e2e8f0",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.375rem",
-                      }}
-                    >
-                      <h4
-                        style={{
-                          fontSize: "0.7rem",
-                          fontWeight: 600,
-                          color: "#0d7777",
-                          margin: "0 0 0.4rem",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.05em",
-                        }}
-                      >
-                        Products Used:
-                      </h4>
-                      <ul
-                        style={{
-                          listStyle: "none",
-                          padding: 0,
-                          margin: 0,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "0.375rem",
-                        }}
-                      >
-                        {appProducts.map((p) => (
-                          <li
-                            key={p!.id}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.5rem",
-                              fontSize: "0.8rem",
-                              color: "#475569",
-                            }}
-                          >
-                            <span
-                              style={{
-                                width: "5px",
-                                height: "5px",
-                                borderRadius: "50%",
-                                backgroundColor: "#0d7777",
-                                flexShrink: 0,
-                              }}
-                            />
-                            {p!.name}
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 </Link>
