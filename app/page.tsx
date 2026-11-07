@@ -268,10 +268,12 @@ export default function Home() {
               const appProducts = app.productSlugs
                 .map((s) => products.find((p) => p.slug === s))
                 .filter(Boolean);
+              const featuredImage = appProducts[0]?.images?.[0];
               return (
                 <Link
                   key={app.slug}
                   href={`/applications/${app.slug}`}
+                  className="app-service-card"
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -280,11 +282,113 @@ export default function Home() {
                     borderRadius: "8px",
                     overflow: "hidden",
                     textDecoration: "none",
-                    transition: "all 0.3s ease",
+                    transition: "all 0.35s ease",
                     height: "100%",
                   }}
                 >
-                  <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                  {/* Image with hover overlay */}
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      height: "200px",
+                      overflow: "hidden",
+                      backgroundColor: "#f8fafc",
+                    }}
+                  >
+                    {featuredImage ? (
+                      <Image
+                        className="app-service-image"
+                        src={featuredImage}
+                        alt={app.name}
+                        fill
+                        style={{
+                          objectFit: "cover",
+                          transition: "transform 0.45s ease",
+                        }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "#e2e8f0",
+                          color: "#94a3b8",
+                          fontSize: "1.1rem",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {app.name}
+                      </div>
+                    )}
+                    <div
+                      className="app-service-overlay"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(13,119,119,0.92) 0%, rgba(13,119,119,0.5) 50%, transparent 100%)",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#ffffff",
+                        opacity: 0,
+                        transition: "opacity 0.35s ease",
+                        padding: "1.5rem",
+                        textAlign: "center",
+                        gap: "0.75rem",
+                      }}
+                    >
+                      <h3
+                        style={{
+                          fontSize: "1.15rem",
+                          fontWeight: 800,
+                          color: "#ffffff",
+                          margin: 0,
+                          lineHeight: 1.3,
+                          textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        {app.name}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: "0.85rem",
+                          color: "rgba(255,255,255,0.95)",
+                          lineHeight: 1.5,
+                          margin: 0,
+                          maxWidth: "260px",
+                          textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        {app.shortDescription}
+                      </p>
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          backgroundColor: "#ffffff",
+                          color: "#0d7777",
+                          padding: "0.5rem 1rem",
+                          borderRadius: "6px",
+                          fontWeight: 700,
+                          fontSize: "0.85rem",
+                          textDecoration: "none",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        }}
+                      >
+                        View Solutions <ArrowRight size={14} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                     <span
                       style={{
                         display: "inline-block",
@@ -296,17 +400,16 @@ export default function Home() {
                         borderRadius: "4px",
                         textTransform: "uppercase",
                         letterSpacing: "0.04em",
-                        marginBottom: "0.75rem",
                       }}
                     >
                       Products: {appProducts.length}
                     </span>
                     <h3
                       style={{
-                        fontSize: "1.1rem",
+                        fontSize: "1.05rem",
                         fontWeight: 700,
                         color: "#1e293b",
-                        margin: "0 0 0.75rem",
+                        margin: 0,
                         lineHeight: 1.3,
                       }}
                     >
@@ -317,7 +420,7 @@ export default function Home() {
                         fontSize: "0.85rem",
                         color: "#64748b",
                         lineHeight: 1.6,
-                        margin: "0 0 1rem",
+                        margin: 0,
                         flex: 1,
                       }}
                     >
@@ -326,16 +429,19 @@ export default function Home() {
                     <div
                       style={{
                         marginTop: "auto",
-                        paddingTop: "1rem",
+                        paddingTop: "0.75rem",
                         borderTop: "1px solid #e2e8f0",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.375rem",
                       }}
                     >
                       <h4
                         style={{
-                          fontSize: "0.75rem",
+                          fontSize: "0.7rem",
                           fontWeight: 600,
                           color: "#0d7777",
-                          margin: "0 0 0.5rem",
+                          margin: "0 0 0.4rem",
                           textTransform: "uppercase",
                           letterSpacing: "0.05em",
                         }}
@@ -359,14 +465,14 @@ export default function Home() {
                               display: "flex",
                               alignItems: "center",
                               gap: "0.5rem",
-                              fontSize: "0.85rem",
+                              fontSize: "0.8rem",
                               color: "#475569",
                             }}
                           >
                             <span
                               style={{
-                                width: "6px",
-                                height: "6px",
+                                width: "5px",
+                                height: "5px",
                                 borderRadius: "50%",
                                 backgroundColor: "#0d7777",
                                 flexShrink: 0,
@@ -377,27 +483,6 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.375rem",
-                      padding: "1rem 1.5rem",
-                      backgroundColor: "#f8fafc",
-                      borderTop: "1px solid #e2e8f0",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "0.85rem",
-                        fontWeight: 600,
-                        color: "#0d7777",
-                      }}
-                    >
-                      Explore Solutions
-                    </span>
-                    <ArrowRight size={14} style={{ color: "#0d7777" }} />
                   </div>
                 </Link>
               );
@@ -420,6 +505,26 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <style>{`
+        .app-service-card:hover {
+          border-color: #0d7777 !important;
+          box-shadow: 0 8px 24px rgba(13, 119, 119, 0.12) !important;
+          transform: translateY(-4px) !important;
+        }
+        .app-service-card:hover .app-service-image {
+          transform: scale(1.05) !important;
+        }
+        .app-service-card:hover .app-service-overlay {
+          opacity: 1 !important;
+        }
+        .client-logo-card:hover {
+          border-color: #0d7777 !important;
+          box-shadow: 0 6px 16px rgba(13, 119, 119, 0.1) !important;
+          transform: translateY(-2px) !important;
+          backgroundColor: #f0fdfa !important;
+        }
+      `}</style>
 
       {/* ── Industries Served ───────────────────────────────────── */}
       <section style={{ padding: "4rem 0", backgroundColor: "#ffffff" }}>
@@ -566,40 +671,50 @@ export default function Home() {
             {CLIENT_LOGOS.map((client) => (
               <div
                 key={client.name}
+                className="client-logo-card"
                 style={{
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "1rem",
+                  padding: "1.25rem 1rem",
                   border: "1px solid #e2e8f0",
                   borderRadius: "8px",
                   backgroundColor: "#ffffff",
-                  transition: "border-color 0.2s ease",
+                  transition: "all 0.25s ease",
+                  cursor: "default",
                 }}
               >
-                <span
+                <div
                   style={{
-                    fontSize: "1.5rem",
-                    opacity: 0.6,
-                    filter: "grayscale(60%)",
-                    transition: "all 0.2s ease",
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#e6f4f4",
+                    color: "#0d7777",
+                    fontSize: "1.25rem",
+                    fontWeight: 800,
+                    marginBottom: "0.6rem",
+                    letterSpacing: "0.05em",
+                    transition: "all 0.25s ease",
                   }}
                 >
                   {client.icon}
-                </span>
+                </div>
                 <span
                   style={{
-                    position: "absolute",
-                    top: "-8px",
-                    right: "-8px",
-                    width: "16px",
-                    height: "16px",
-                    backgroundColor: "#0d7777",
-                    borderRadius: "50%",
-                    border: "2px solid #ffffff",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                    fontSize: "0.8rem",
+                    color: "#475569",
+                    fontWeight: 600,
+                    textAlign: "center",
+                    lineHeight: 1.3,
                   }}
-                />
+                >
+                  {client.name}
+                </span>
               </div>
             ))}
           </div>
