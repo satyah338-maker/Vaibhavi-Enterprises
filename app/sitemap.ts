@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/enquiry",
     "/products",
     "/projects",
-    "/applications",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -50,11 +49,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const locationCities = ["mumbai", "pune", "nashik", "thane", "nagpur", "aurangabad"];
+
+  const locationRoutes = locationCities.map((city) => ({
+    url: `${baseUrl}/locations/${city}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     ...staticRoutes,
     ...productRoutes,
     ...projectRoutes,
     ...applicationRoutes,
     ...industryRoutes,
+    ...locationRoutes,
   ];
 }
