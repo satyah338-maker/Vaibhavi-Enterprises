@@ -1,13 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+
+import { cn } from "@/lib/utils";
 
 interface Slide {
   id: string;
   image: string;
+  label: string;
   title: string;
   subtitle: string;
   ctaText: string;
@@ -19,6 +24,7 @@ const SLIDES: Slide[] = [
   {
     id: "ptfe",
     image: "/assets/poster1.png",
+    label: "Fluoropolymer Coatings",
     title: "Viflon Fluoropolymer Coatings",
     subtitle:
       "PTFE, HALAR, ECTFE, PVDF, FEP & PFA coatings for superior corrosion resistance and non-stick performance.",
@@ -29,6 +35,7 @@ const SLIDES: Slide[] = [
   {
     id: "vaicon",
     image: "/assets/poster2.png",
+    label: "Porous Plastic Filters",
     title: "Vaicon Porous Plastic Filters",
     subtitle:
       "Sintered UHMWPE/PE filter media for pharmaceutical, chemical, and pneumatic applications.",
@@ -39,6 +46,7 @@ const SLIDES: Slide[] = [
   {
     id: "fbe",
     image: "/assets/poster3.png",
+    label: "Fusion Bonded Epoxy",
     title: "Fusion Bonded Epoxy Coatings",
     subtitle:
       "Superior corrosion protection for pipelines, tanks, valves, and structural steel since 1994.",
@@ -49,6 +57,7 @@ const SLIDES: Slide[] = [
   {
     id: "food",
     image: "/assets/poster4.png",
+    label: "Food-Grade Coatings",
     title: "Food-Grade Non-Stick Coatings",
     subtitle:
       "FDA-compliant PTFE coatings for food processing equipment, cookware, and beverage production.",
@@ -59,6 +68,7 @@ const SLIDES: Slide[] = [
   {
     id: "water",
     image: "/assets/poster5.png",
+    label: "Water Treatment",
     title: "Water Treatment Solutions",
     subtitle:
       "Porous plastic filter media and corrosion-resistant coatings for water and wastewater treatment plants.",
@@ -69,6 +79,7 @@ const SLIDES: Slide[] = [
   {
     id: "auto",
     image: "/assets/poster6.png",
+    label: "Automotive Coatings",
     title: "Automotive Component Coatings",
     subtitle:
       "Low-friction PTFE and fluoropolymer coatings for automotive parts, fasteners, and assemblies.",
@@ -76,223 +87,266 @@ const SLIDES: Slide[] = [
     ctaHref: "/applications/automotive",
     alt: "Automotive Component Coatings",
   },
+  {
+    id: "turnkey",
+    image: "/assets/poster7.png",
+    label: "Turnkey Solutions",
+    title: "End-to-End Coating Solutions",
+    subtitle:
+      "From surface preparation to final coating — fully equipped in-house facility with controlled processes and fast turnaround.",
+    ctaText: "Our Capabilities",
+    ctaHref: "/about",
+    alt: "End-to-End Coating Solutions",
+  },
+  {
+    id: "legacy",
+    image: "/assets/poster8.png",
+    label: "Established 1989",
+    title: "Trusted by Industry Since 1989",
+    subtitle:
+      "Three decades of surface engineering serving ONGC, L&T, Godrej, Tata, Mahindra and leading pharma and chemical plants.",
+    ctaText: "Our Story",
+    ctaHref: "/about",
+    alt: "Trusted by Industry Since 1989",
+  },
 ];
 
 export default function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  const minSwipeDistance = 50;
+  const [carouselRef, api] = useEmblaCarousel(
+    {
+      loop: true,
+    },
+    [Autoplay({ delay: 6000, stopOnMouseEnter: true, stopOnInteraction: false })]
+  );
+
+  const autoplayApi = api?.plugins().autoplay ?? null;
+  const isPlaying = autoplayApi?.isPlaying() ?? true;
 
   useEffect(() => {
-    if (!isPlaying || isHovered) return;
-    timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 6000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(media.matches);
+    const handler = () => setReducedMotion(media.matches);
+    media.addEventListener("change", handler);
+    return () => media.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => {
+      const selected = api.selectedScrollSnap();
+      setCurrentIndex(selected % SLIDES.length);
     };
-  }, [currentIndex, isPlaying, isHovered]);
+    api.on("select", onSelect);
+    onSelect();
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
-  const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
-  }, []);
+  const onPrev = useCallback(() => {
+    api?.scrollPrev();
+    autoplayApi?.stop();
+    autoplayApi?.play();
+  }, [api, autoplayApi]);
 
-  const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
-  }, []);
+  const onNext = useCallback(() => {
+    api?.scrollNext();
+    autoplayApi?.stop();
+    autoplayApi?.play();
+  }, [api, autoplayApi]);
 
-  const goToSlide = useCallback((index: number) => {
-    setCurrentIndex(index);
-  }, []);
+  const onGoTo = useCallback(
+    (index: number) => {
+      api?.scrollTo(index);
+      autoplayApi?.stop();
+      autoplayApi?.play();
+    },
+    [api, autoplayApi]
+  );
 
-  const togglePlay = useCallback(() => {
-    setIsPlaying((prev) => !prev);
-  }, []);
-
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  }, []);
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  }, []);
-
-  const onTouchEnd = useCallback(() => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    if (distance > minSwipeDistance) goToNext();
-    if (distance < -minSwipeDistance) goToPrev();
-  }, [touchStart, touchEnd, goToNext, goToPrev]);
+  const onTogglePlay = useCallback(() => {
+    if (!autoplayApi) return;
+    if (autoplayApi.isPlaying()) {
+      autoplayApi.stop();
+    } else {
+      autoplayApi.play();
+    }
+  }, [autoplayApi]);
 
   return (
-    <div
-      className="relative w-full overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      {SLIDES.map((slide, index) => {
-        const isActive = index === currentIndex;
-        return (
-          <div
-            key={slide.id}
-            className="absolute inset-0 w-full h-full"
-            style={{
-              opacity: isActive ? 1 : 0,
-              transform: isActive ? "scale(1)" : "scale(1.02)",
-              transition: "opacity 1200ms ease-in-out, transform 1200ms ease-in-out",
-              zIndex: isActive ? 10 : 0,
-              pointerEvents: isActive ? "auto" : "none",
-            }}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.alt}
-              width={1920}
-              height={720}
-              priority={index === 0}
-              className="w-full h-[72vh] md:h-[60vh] object-cover"
-              sizes="100vw"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(135deg, rgba(13,119,119,0.75) 0%, rgba(13,119,119,0.45) 60%, rgba(0,0,0,0.2) 100%)",
-              }}
-            />
-            <div className="absolute inset-0 z-20 flex items-center justify-center px-6 md:px-0">
-              <div className="container relative z-10 max-w-4xl text-center md:text-left">
-                <span
-                  style={{
-                    display: "inline-block",
-                    marginBottom: "0.75rem",
-                    padding: "0.4rem 1rem",
-                    backgroundColor: "rgba(255,255,255,0.15)",
-                    color: "#5eead4",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    borderRadius: "4px",
-                    backdropFilter: "blur(4px)",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}
-                >
-                  Est. 1989 · Mumbai, India
-                </span>
-                <h2
-                  style={{
-                    fontSize: "clamp(1.75rem, 4vw, 3rem)",
-                    fontWeight: 800,
-                    color: "#ffffff",
-                    lineHeight: 1.2,
-                    margin: "0 0 1rem",
-                    maxWidth: "700px",
-                    textShadow: "0 2px 4px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {slide.title}
-                </h2>
-                <p
-                  style={{
-                    fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)",
-                    color: "rgba(255,255,255,0.9)",
-                    lineHeight: 1.7,
-                    margin: "0 0 1.75rem",
-                    maxWidth: "560px",
-                    textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {slide.subtitle}
-                </p>
-                <Link
-                  href={slide.ctaHref}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    backgroundColor: "#ffffff",
-                    color: "#0d7777",
-                    padding: "0.7rem 1.5rem",
-                    borderRadius: "6px",
-                    fontWeight: 700,
-                    fontSize: "0.9rem",
-                    textDecoration: "none",
-                    transition: "all 0.2s ease",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {slide.ctaText}
-                  <span
+    <section className="relative w-full overflow-hidden bg-[#0d7777]">
+      {/* ── Embla Carousel ── */}
+      <div
+        ref={carouselRef}
+        className="hero-carousel w-full h-[72vh] md:h-[82vh] relative overflow-hidden"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Featured solutions"
+      >
+        <div className="embla__viewport w-full h-full overflow-hidden">
+          <div className="embla__container flex h-full">
+            {SLIDES.map((slide, index) => (
+              <div
+                key={slide.id}
+                className="embla__slide min-w-[100%] h-full flex flex-col justify-center relative"
+              >
+                {/* Background image with Ken Burns effect */}
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src={slide.image}
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover w-full h-full"
                     style={{
-                      display: "inline-block",
-                      width: "16px",
-                      height: "16px",
-                      transition: "transform 0.2s ease",
+                      animation: reducedMotion
+                        ? "none"
+                        : "kenBurns 9s ease-in-out infinite alternate",
                     }}
-                  >
-                    &rarr;
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
 
+                {/* Depth overlays */}
+                <div
+                  className="absolute inset-0 z-10"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(13,119,119,0.72) 0%, rgba(13,119,119,0.35) 45%, rgba(13,119,119,0.12) 100%)",
+                  }}
+                />
+                <div
+                  className="absolute inset-0 z-10"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.5) 100%)",
+                  }}
+                />
+
+                {/* Slide content */}
+                <div className="relative z-20 flex h-full items-center px-6 md:px-[6%] pt-10 md:pt-0">
+                  <div className="w-full max-w-[700px] text-center md:text-left">
+                    <span
+                      className="inline-block mb-3 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[0.68rem] font-bold tracking-widest text-[#5eead4] uppercase backdrop-blur-sm"
+                    >
+                      Est. 1989 · Mumbai, India
+                    </span>
+                    <h2
+                      className="text-3xl md:text-[3.75rem] font-extrabold text-white leading-[1.15] mb-4 tracking-tight"
+                      style={{ textShadow: "0 2px 8px rgba(0,0,0,0.35)" }}
+                    >
+                      {slide.title}
+                    </h2>
+                    <p
+                      className="text-base md:text-lg text-slate-200 leading-relaxed mb-7 max-w-[460px] mx-auto md:mx-0"
+                      style={{ textShadow: "0 1px 3px rgba(0,0,0,0.35)" }}
+                    >
+                      {slide.subtitle}
+                    </p>
+                    <Link
+                      href={slide.ctaHref}
+                      className="inline-flex items-center gap-2 bg-white text-[#0d7777] px-5 py-2.5 rounded-lg font-bold text-sm shadow-xl hover:shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:scale-[1.02] transition-all duration-200"
+                    >
+                      {slide.ctaText}
+                      <span
+                        style={{
+                          display: "inline-block",
+                          transition: "transform 0.2s ease",
+                        }}
+                      >
+                        &rarr;
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Visually hidden live region for screen readers ── */}
+      <div className="sr-only" aria-live="polite">
+        Slide {currentIndex + 1} of {SLIDES.length}.{" "}
+        {SLIDES[currentIndex]?.title}.
+      </div>
+
+      {/* ── Navigation Arrows ── */}
       <button
-        onClick={goToPrev}
         type="button"
+        onClick={onPrev}
         aria-label="Previous slide"
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/90 text-[#0d7777] hover:bg-white flex items-center justify-center transition-all shadow-sm"
-        style={{ opacity: 0.85 }}
+        className={cn(
+          "absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/90 text-[#0d7777] flex items-center justify-center shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all",
+          !reducedMotion && "hover:-translate-y-1"
+        )}
       >
         <ChevronLeft className="w-5 h-5" />
+        <span className="sr-only">Previous slide</span>
       </button>
+
       <button
-        onClick={goToNext}
         type="button"
+        onClick={onNext}
         aria-label="Next slide"
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/90 text-[#0d7777] hover:bg-white flex items-center justify-center transition-all shadow-sm"
-        style={{ opacity: 0.85 }}
+        className={cn(
+          "absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/90 text-[#0d7777] flex items-center justify-center shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all",
+          !reducedMotion && "hover:-translate-y-1"
+        )}
       >
         <ChevronRight className="w-5 h-5" />
+        <span className="sr-only">Next slide</span>
       </button>
 
+      {/* ── Play / Pause ── */}
       <button
-        onClick={togglePlay}
         type="button"
+        onClick={onTogglePlay}
         aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
-        className="absolute bottom-4 left-4 z-40 w-9 h-9 rounded-full bg-white/90 text-[#0d7777] hover:bg-white flex items-center justify-center transition-all shadow-sm text-xs"
-        style={{ opacity: 0.85 }}
+        className="absolute bottom-6 left-6 z-30 w-9 h-9 rounded-full bg-white/90 text-[#0d7777] flex items-center justify-center shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all"
       >
         {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+        <span className="sr-only">
+          {isPlaying ? "Pause autoplay" : "Resume autoplay"}
+        </span>
       </button>
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 flex gap-2">
-        {SLIDES.map((_, idx) => (
+      {/* ── Slide Counter ── */}
+      <div className="absolute bottom-6 right-6 z-30 text-right hidden md:block">
+        <span
+          className="block text-[#0d7777] font-extrabold text-xs tracking-wider uppercase opacity-70"
+        >
+          Featured Solution
+        </span>
+        <span className="block text-white font-bold text-sm">
+          {String(currentIndex + 1).padStart(2, "0")} /
+          {String(SLIDES.length).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* ── Pagination Dots ── */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2.5">
+        {SLIDES.map((_, index) => (
           <button
-            key={idx}
+            key={index}
             type="button"
-            onClick={() => goToSlide(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              idx === currentIndex
-                ? "bg-[#0d7777] w-6"
-                : "bg-white/60 hover:bg-white/80"
-            }`}
+            onClick={() => onGoTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === currentIndex ? "true" : undefined}
+            className={cn(
+              "w-2 h-2 rounded-full transition-all duration-300 ease-out",
+              index === currentIndex
+                ? "bg-[#0d7777] w-8 shadow-[0_0_0_3px_rgba(13,119,119,0.3)]"
+                : "bg-white/40 hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-white"
+            )}
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
+

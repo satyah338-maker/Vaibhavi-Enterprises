@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle, Award, Layers, FlaskConical, Phone } from "luc
 import { products } from "@/data/products";
 import { applications } from "@/data/applications";
 import IndustryApplications from "@/components/IndustryApplications";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export const metadata: Metadata = {
   title: "Vaibhavi Enterprises | Fluoropolymer Coatings & Porous Plastic Filters Maharashtra",
@@ -92,82 +93,8 @@ const CLIENT_NAMES = [
 export default function Home() {
   return (
     <div style={{ backgroundColor: "#ffffff" }}>
-      {/* ── Hero ───────────────────────────────────────────────── */}
-      <section
-        className="relative w-full bg-slate-800 overflow-hidden"
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(135deg, rgba(13,119,119,0.85) 0%, rgba(13,119,119,0.55) 60%, rgba(0,0,0,0.3) 100%)",
-          }}
-        />
-        <div
-          className="container relative z-10"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            padding: "5rem 1rem",
-            minHeight: "60vh",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              marginBottom: "1rem",
-              padding: "0.5rem 1.25rem",
-              backgroundColor: "rgba(255,255,255,0.15)",
-              color: "#5eead4",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              borderRadius: "4px",
-              backdropFilter: "blur(4px)",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            Est. 1989 · Mumbai, India
-          </span>
-          <h1
-            style={{
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 800,
-              color: "#ffffff",
-              lineHeight: 1.2,
-              margin: "0 0 1.5rem",
-              maxWidth: "800px",
-              textShadow: "0 2px 4px rgba(0,0,0,0.3)",
-            }}
-          >
-            Protecting Surfaces. Enabling Industry.
-          </h1>
-          <p
-            style={{
-              fontSize: "clamp(1rem, 1.2vw, 1.25rem)",
-              color: "rgba(255,255,255,0.9)",
-              lineHeight: 1.8,
-              margin: "0 0 2rem",
-              maxWidth: "600px",
-              textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-            }}
-          >
-            India&apos;s trusted source for <strong style={{ color: "#5eead4" }}>Viflon fluoropolymer coatings</strong> and{" "}
-            <strong style={{ color: "#5eead4" }}>Vaicon porous plastic filters</strong> — engineered for the harshest industrial environments.
-          </p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-            <Link href="/enquiry" className="btn-primary" style={{ padding: "0.75rem 1.75rem", fontSize: "1rem" }}>
-              Request a Quote <ArrowRight size={16} />
-            </Link>
-            <Link href="/about" className="btn-outline" style={{ color: "#fff", borderColor: "rgba(255,255,255,0.5)", backgroundColor: "rgba(255,255,255,0.1)", padding: "0.75rem 1.75rem", fontSize: "1rem" }}>
-              About Us
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── Hero Carousel ──────────────────────────────────────── */}
+      <HeroCarousel />
 
       {/* ── Stats Strip ────────────────────────────────────────── */}
       <section style={{ backgroundColor: "#0d7777" }}>

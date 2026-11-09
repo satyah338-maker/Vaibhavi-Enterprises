@@ -299,3 +299,19 @@ select:focus {
   transform: scale(1.08) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
 }
+
+/* ── Hero Carousel: Ken Burns image animation ──────────────── */
+@keyframes kenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel img {
+    animation: none !important;
+  }
+}
