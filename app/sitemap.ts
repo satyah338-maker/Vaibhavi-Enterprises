@@ -66,6 +66,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const additionalRoutes = [
+    "/certifications",
+    "/track-quote",
+    "/client/login",
+    "/refer",
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...productRoutes,
@@ -74,5 +86,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryRoutes,
     ...locationRoutes,
     ...blogRoutes,
+    ...additionalRoutes,
   ];
 }

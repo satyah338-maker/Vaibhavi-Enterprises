@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Mail, ExternalLink, Send } from "lucide-react";
 import { products } from "@/data/products";
 
 export default function Footer() {
@@ -186,6 +188,59 @@ export default function Footer() {
                 <a href="mailto:vaibhavient@gmail.com" style={{ color: "#94a3b8", textDecoration: "none", display: "block" }}>vaibhavient@gmail.com</a>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        <div>
+          <h4
+            style={{
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#f1f5f9",
+              marginBottom: "1rem",
+            }}
+          >
+            Newsletter
+          </h4>
+          <p style={{ fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.6, marginBottom: "1rem" }}>
+            Subscribe for updates on new coating technologies, case studies,
+            and industry insights from Maharashtra&apos;s industrial sector.
+          </p>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              style={{
+                flex: 1,
+                padding: "0.625rem 0.875rem",
+                border: "1px solid #334155",
+                borderRadius: "6px",
+                fontSize: "0.85rem",
+                color: "#f1f5f9",
+                backgroundColor: "#0f172a",
+                outline: "none",
+              }}
+            />
+            <button
+              style={{
+                backgroundColor: "#0d7777",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "6px",
+                padding: "0.625rem 1rem",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.375rem",
+              }}
+            >
+              <Send size={16} /> Subscribe
+            </button>
           </div>
         </div>
       </div>

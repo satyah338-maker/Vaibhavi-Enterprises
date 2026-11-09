@@ -508,6 +508,109 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Client Testimonials ─────────────────────────────────── */}
+      <section style={{ padding: "4rem 0", backgroundColor: "#f8fafc" }}>
+        <div className="container">
+          <div className="accent-line" />
+          <h2 className="section-heading">What Our Clients Say</h2>
+          <p className="section-subheading">
+            Hear from our long-standing partners across Maharashtra&apos;s
+            industrial sector.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+              gap: "2rem",
+            }}
+          >
+            {[
+              {
+                name: "R. Sharma",
+                title: "Procurement Manager",
+                company: "ONGC, Mumbai",
+                companySlug: "ongc",
+                rating: 5,
+                text:
+                  "Vaibhavi Enterprises has been our trusted coating partner for over 5 years. Their FBE coating on our pipeline infrastructure has performed flawlessly in offshore conditions.",
+              },
+              {
+                name: "S. Desai",
+                title: "Plant Head",
+                company: "L&T, Pune",
+                companySlug: "lnt",
+                rating: 5,
+                text:
+                  "The HALAR coating on our chemical storage tanks has exceeded expectations. Zero permeation after 24 months of service.",
+              },
+              {
+                name: "M. Iyer",
+                title: "Quality Manager",
+                company: "Godrej & Boyce, Mumbai",
+                companySlug: "godrej",
+                rating: 5,
+                text:
+                  "Whitford Quality Approved certification gives us confidence. PTFE coating on our molds has reduced release agent usage by 95%.",
+              },
+              {
+                name: "A. Patel",
+                title: "Operations Director",
+                company: "Birla Group, Nagpur",
+                companySlug: "birla",
+                rating: 5,
+                text:
+                  "Professional team, timely delivery, and coatings that last. Vaibhavi is our go-to for corrosion protection.",
+              },
+            ].map((testimonial, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "8px",
+                  padding: "1.75rem",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      style={{
+                        color: star <= testimonial.rating ? "#0d7777" : "#cbd5e1",
+                        fontSize: "1.1rem",
+                      }}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#475569",
+                    lineHeight: 1.7,
+                    margin: "0 0 1.25rem",
+                    fontStyle: "italic",
+                  }}
+                >
+                  &quot;{testimonial.text}&quot;
+                </p>
+                <div>
+                  <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "#1e293b", margin: "0 0 0.25rem" }}>
+                    {testimonial.name}
+                  </p>
+                  <p style={{ fontSize: "0.8rem", color: "#64748b", margin: 0 }}>
+                    {testimonial.title}, {testimonial.company}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Our Clients ─────────────────────────────────────────── */}
       <section style={{ padding: "4rem 0", backgroundColor: "#ffffff", borderBottom: "1px solid #e2e8f0" }}>
         <div className="container">
