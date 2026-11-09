@@ -143,6 +143,66 @@ export const applications: Application[] = [
     metaDescription:
       "Marine and offshore corrosion-resistant coatings for ships, offshore structures, and saltwater equipment. Serving Maharashtra's coastal and offshore sector.",
   },
+  {
+    id: "power-generation",
+    name: "Power Generation",
+    slug: "power-generation",
+    description:
+      "High-temperature and corrosion-resistant coatings for power generation infrastructure, including boilers, turbines, heat exchangers, and structural steel across Maharashtra's power plants and substations.",
+    shortDescription:
+      "Protective coatings for power generation equipment, boilers, turbines, and structural steel.",
+    industries: ["Power Generation", "Energy", "Infrastructure", "Industrial Processing"],
+    productSlugs: ["fusion-bonded-epoxy-coating", "ptfe-coating", "fluoropolymer-coating", "porous-plastic-filter-sheets"],
+    metaTitle:
+      "Power Generation Coatings | Boiler & Turbine Protection Maharashtra | Vaibhavi Enterprises",
+    metaDescription:
+      "High-temperature corrosion-resistant coatings for power plants, boilers, turbines, and heat exchangers. Serving Maharashtra's power generation sector.",
+  },
+  {
+    id: "aerospace",
+    name: "Aerospace & Defense",
+    slug: "aerospace",
+    description:
+      "Precision fluoropolymer coatings for aerospace components, seals, gaskets, fuel system parts, and avionics requiring low friction, chemical resistance, and thermal stability.",
+    shortDescription:
+      "PTFE and PFA coatings for aerospace seals, gaskets, and fuel system components.",
+    industries: ["Aerospace", "Defense", "Aviation", "Precision Engineering"],
+    productSlugs: ["ptfe-coating", "fluoropolymer-coating", "porous-plastic-filter-sheets"],
+    metaTitle:
+      "Aerospace Component Coatings | PTFE Seals & Gaskets Maharashtra | Vaibhavi Enterprises",
+    metaDescription:
+      "PTFE and fluoropolymer coatings for aerospace seals, gaskets, fuel systems, and precision components. Serving Maharashtra's aerospace and defense sector.",
+  },
+  {
+    id: "construction-infrastructure",
+    name: "Construction & Infrastructure",
+    slug: "construction-infrastructure",
+    description:
+      "Corrosion-resistant protective coatings for structural steel, bridges, rebar, water tanks, and infrastructure projects across Maharashtra's construction and civil engineering sector.",
+    shortDescription:
+      "FBE and protective coatings for structural steel, bridges, and infrastructure projects.",
+    industries: ["Construction", "Infrastructure", "Civil Engineering", "Water Treatment"],
+    productSlugs: ["fusion-bonded-epoxy-coating", "ptfe-coating", "fluoropolymer-coating", "porous-plastic-filter-sheets"],
+    metaTitle:
+      "Construction & Infrastructure Coatings | Structural Steel Protection Maharashtra | Vaibhavi Enterprises",
+    metaDescription:
+      "Corrosion-resistant coatings for structural steel, bridges, rebar, and infrastructure. Serving Maharashtra's construction and civil engineering sector.",
+  },
+  {
+    id: "medical-devices",
+    name: "Medical Devices & Healthcare",
+    slug: "medical-devices",
+    description:
+      "Biocompatible PTFE and fluoropolymer coatings for medical device components, surgical instruments, tubing, and pharmaceutical equipment meeting FDA and healthcare regulatory standards.",
+    shortDescription:
+      "FDA-compliant PTFE coatings for medical devices, surgical instruments, and tubing.",
+    industries: ["Medical Devices", "Healthcare", "Pharmaceutical", "Laboratory Equipment"],
+    productSlugs: ["ptfe-coating", "halar-ectfe-coating", "fluoropolymer-coating", "porous-plastic-filter-sheets"],
+    metaTitle:
+      "Medical Device Coatings | PTFE Surgical Instruments Maharashtra | Vaibhavi Enterprises",
+    metaDescription:
+      "FDA-compliant PTFE and fluoropolymer coatings for medical devices, surgical instruments, tubing, and healthcare equipment. Serving Maharashtra's medical sector.",
+  },
 ];
 
 export const getApplicationBySlug = (slug: string): Application | undefined => {

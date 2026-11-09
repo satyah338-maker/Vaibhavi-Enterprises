@@ -3,6 +3,7 @@ import { products } from "@/data/products";
 import { applications } from "@/data/applications";
 import { projects } from "@/data/projects";
 import { pro } from "@/data/application";
+import { blogPosts } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.vaibhavientp.com";
@@ -58,6 +59,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const blogRoutes = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date).toISOString(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...productRoutes,
@@ -65,5 +73,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...applicationRoutes,
     ...industryRoutes,
     ...locationRoutes,
+    ...blogRoutes,
   ];
 }
