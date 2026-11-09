@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -93,6 +94,7 @@ export default function Navbar() {
           <Link href="/enquiry" className="btn-primary" style={{ marginLeft: "0.5rem", padding: "0.45rem 1.1rem", fontSize: "0.875rem" }}>
             Get a Quote
           </Link>
+          <LanguageSelector style={{ marginLeft: "0.75rem" }} />
         </nav>
 
         {/* Mobile Hamburger */}

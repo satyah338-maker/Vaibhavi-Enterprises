@@ -71,6 +71,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/track-quote",
     "/client/login",
     "/refer",
+    "/apply",
+    "/configurator",
+    "/quote-estimator",
+    "/client/dashboard",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),

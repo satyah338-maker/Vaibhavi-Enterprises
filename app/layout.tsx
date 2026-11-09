@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Vaibhavi Enterprises – Fluoropolymer Coatings & Porous Plastic Filters",
@@ -16,13 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <WhatsAppButton />
-        <Footer />
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en">
+        <body>
+          <Navbar />
+          <main>{children}</main>
+          <WhatsAppButton />
+          <Footer />
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }
