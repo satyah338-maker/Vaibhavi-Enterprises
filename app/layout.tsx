@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
+import AIChatbot from "@/components/AIChatbot";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <WhatsAppButton />
+          <AIChatbot />
           <Footer />
         </body>
       </html>

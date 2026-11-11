@@ -18,6 +18,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  if (pathname.startsWith("/admin")) return null;
+
 
   const isActive = (href: string) => pathname === href;
 
@@ -93,6 +95,21 @@ export default function Navbar() {
 
           <Link href="/enquiry" className="btn-primary" style={{ marginLeft: "0.5rem", padding: "0.45rem 1.1rem", fontSize: "0.875rem" }}>
             Get a Quote
+          </Link>
+          <Link
+            href="/admin/login"
+            style={{
+              marginLeft: "0.5rem",
+              padding: "0.45rem 1.1rem",
+              fontSize: "0.875rem",
+              color: "#0d7777",
+              border: "1px solid #0d7777",
+              borderRadius: "6px",
+              textDecoration: "none",
+              fontWeight: 600,
+            }}
+          >
+            Admin
           </Link>
           <LanguageSelector style={{ marginLeft: "0.75rem" }} />
         </nav>

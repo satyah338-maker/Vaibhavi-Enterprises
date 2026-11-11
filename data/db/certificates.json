@@ -1,0 +1,23 @@
+[
+  {
+    "id": "cert-001",
+    "name": "ISO 9001:2015 Certificate",
+    "date": "2026-01-15",
+    "type": "Quality Management",
+    "url": "#"
+  },
+  {
+    "id": "cert-002",
+    "name": "Whitford Quality Approved Coater",
+    "date": "2009-06-01",
+    "type": "Coating Certification",
+    "url": "#"
+  },
+  {
+    "id": "cert-003",
+    "name": "FDA Compliance Statement",
+    "date": "2026-03-10",
+    "type": "Regulatory",
+    "url": "#"
+  }
+]

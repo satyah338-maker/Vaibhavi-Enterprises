@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Ramesh Kulkarni",
+    "company": "ONGC",
+    "email": "ramesh@ongc.co.in",
+    "phone": "+91 22 2500 1000",
+    "city": "Mumbai",
+    "product": "PTFE Coating",
+    "application": "Chemical Processing",
+    "quantity": "500 sq. m.",
+    "requirements": "Need corrosion resistant coating for storage tanks",
+    "filePath": null,
+    "status": "new",
+    "id": "1794253917738-8lcwhi9",
+    "createdAt": "2026-11-09T19:51:57.738Z",
+    "updatedAt": "2026-11-09T19:51:57.738Z"
+  },
+  {
+    "name": "Suresh Iyer",
+    "company": "L&T",
+    "email": "suresh@larsentoubro.com",
+    "phone": "+91 22 6750 2000",
+    "city": "Mumbai",
+    "product": "FBE Coating",
+    "application": "Construction",
+    "quantity": "1200 sq. m.",
+    "requirements": "Pipeline coating for bridge project",
+    "filePath": null,
+    "status": "new",
+    "id": "1794253963786-xtff6f1",
+    "createdAt": "2026-11-09T19:52:43.786Z",
+    "updatedAt": "2026-11-09T19:52:43.786Z"
+  },
+  {
+    "name": "Anita Desai",
+    "company": "Godrej",
+    "email": "anita@godrej.com",
+    "phone": "+91 22 6796 1000",
+    "city": "Mumbai",
+    "product": "PTFE Coating",
+    "application": "Chemical Processing",
+    "quantity": "300 sq. m.",
+    "requirements": "Chemical tank lining",
+    "filePath": null,
+    "status": "new",
+    "id": "1794254212479-tja5x3q",
+    "createdAt": "2026-11-09T19:56:52.479Z",
+    "updatedAt": "2026-11-09T19:56:52.479Z"
+  }
+]

@@ -1,9 +1,14 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 const phoneNumber = "919820052056";
 const message = "Hello! I would like to enquire about your coating and filter products.";
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
+
   const handleClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");

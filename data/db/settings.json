@@ -1,0 +1,51 @@
+[
+  {
+    "id": "setting-site-name",
+    "key": "siteName",
+    "value": "Vaibhavi Enterprises",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-admin-username",
+    "key": "adminUsername",
+    "value": "admin",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-admin-password",
+    "key": "adminPassword",
+    "value": "admin123",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-admin-secret",
+    "key": "adminSessionSecret",
+    "value": "vaibhavi-admin-secret-change-in-production",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-site-email",
+    "key": "siteEmail",
+    "value": "response@vaibhavientp.com",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-site-phone",
+    "key": "sitePhone",
+    "value": "+91 98200 52056",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "setting-site-address",
+    "key": "siteAddress",
+    "value": "N/3, Cama Industrial Estate, Goregaon (E), Mumbai – 400063, Maharashtra, India",
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  }
+]

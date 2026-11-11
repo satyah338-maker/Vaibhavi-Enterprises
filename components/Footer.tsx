@@ -1,11 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, ExternalLink, Send } from "lucide-react";
 import { products } from "@/data/products";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
+
   const coatings = products.filter((p) => p.category === "Coatings");
   const filters = products.filter((p) => p.category === "Filters");
 

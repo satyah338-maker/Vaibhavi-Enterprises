@@ -180,18 +180,20 @@ export default function HeroCarousel() {
     <section className="relative w-full overflow-hidden bg-[#0d7777]">
       {/* ── Embla Carousel ── */}
       <div
-        ref={carouselRef}
         className="hero-carousel w-full h-[72vh] md:h-[82vh] relative overflow-hidden"
         role="region"
         aria-roledescription="carousel"
         aria-label="Featured solutions"
       >
-        <div className="embla__viewport w-full h-full overflow-hidden">
+        <div
+          ref={carouselRef}
+          className="embla__viewport w-full h-full overflow-hidden"
+        >
           <div className="embla__container flex h-full">
             {SLIDES.map((slide, index) => (
               <div
                 key={slide.id}
-                className="embla__slide min-w-[100%] h-full flex flex-col justify-center relative"
+                className="embla__slide min-w-[100%] shrink-0 grow-0 basis-full h-full flex flex-col justify-center relative"
               >
                 {/* Background image with Ken Burns effect */}
                 <div className="absolute inset-0 z-0">
@@ -349,4 +351,3 @@ export default function HeroCarousel() {
     </section>
   );
 }
-

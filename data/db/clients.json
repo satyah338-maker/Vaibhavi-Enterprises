@@ -1,0 +1,72 @@
+[
+  {
+    "id": "cli-001",
+    "name": "ONGC",
+    "contactPerson": "Ramesh Kulkarni",
+    "email": "ramesh.kulkarni@ongc.co.in",
+    "phone": "+91 22 2500 1000",
+    "city": "Mumbai",
+    "industry": "Oil & Gas",
+    "status": "active",
+    "totalOrders": 12,
+    "lastOrderDate": "2026-09-20",
+    "createdAt": "2026-01-10T00:00:00Z",
+    "updatedAt": "2026-09-20T00:00:00Z"
+  },
+  {
+    "id": "cli-002",
+    "name": "L&T",
+    "contactPerson": "Suresh Iyer",
+    "email": "suresh.iyer@larsentoubro.com",
+    "phone": "+91 22 6750 2000",
+    "city": "Mumbai",
+    "industry": "Construction / Infrastructure",
+    "status": "active",
+    "totalOrders": 8,
+    "lastOrderDate": "2026-08-15",
+    "createdAt": "2026-02-05T00:00:00Z",
+    "updatedAt": "2026-08-15T00:00:00Z"
+  },
+  {
+    "id": "cli-003",
+    "name": "Godrej",
+    "contactPerson": "Anita Desai",
+    "email": "anita.desai@godrej.com",
+    "phone": "+91 22 6796 1000",
+    "city": "Mumbai",
+    "industry": "Chemical Processing",
+    "status": "active",
+    "totalOrders": 6,
+    "lastOrderDate": "2026-07-10",
+    "createdAt": "2026-03-12T00:00:00Z",
+    "updatedAt": "2026-07-10T00:00:00Z"
+  },
+  {
+    "id": "cli-004",
+    "name": "Mafatlal",
+    "contactPerson": "Vikram Patel",
+    "email": "vikram.patel@mafatlal.com",
+    "phone": "+91 22 6140 7000",
+    "city": "Mumbai",
+    "industry": "Textile",
+    "status": "active",
+    "totalOrders": 4,
+    "lastOrderDate": "2026-06-05",
+    "createdAt": "2026-04-18T00:00:00Z",
+    "updatedAt": "2026-06-05T00:00:00Z"
+  },
+  {
+    "id": "cli-005",
+    "name": "Birla",
+    "contactPerson": "Sanjay Verma",
+    "email": "sanjay.verma@birla.com",
+    "phone": "+91 22 6650 1000",
+    "city": "Pune",
+    "industry": "Pharmaceutical",
+    "status": "active",
+    "totalOrders": 7,
+    "lastOrderDate": "2026-05-22",
+    "createdAt": "2026-01-25T00:00:00Z",
+    "updatedAt": "2026-05-22T00:00:00Z"
+  }
+]
